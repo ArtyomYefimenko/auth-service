@@ -1,0 +1,37 @@
+---
+version: '3'
+services:
+  auth-service:
+    build: .
+    command: uvicorn src.auth_service.main:application --host 0.0.0.0 --port 8000 --reload
+    container_name: auth-service
+    volumes:
+      - .:/auth-service
+    depends_on:
+      auth-service-postgres:
+        condition: service_healthy
+    ports:
+      - "${LOCAL_APP_PORT:-8000}:8000"
+    env_file:
+      - .env
+  auth-service-postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "${LOCAL_DB_PORT:-5436}:5432"
+    volumes:
+      - auth_pgdata:/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: /usr/bin/pg_isready --username=postgres
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+volumes:
+  auth_pgdata:
+    external: true
