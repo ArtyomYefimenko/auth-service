@@ -43,6 +43,7 @@ Auth Service is a microservice responsible for user authentication and authoriza
 
 ## Running Locally
 
+To start the services locally, navigate to the `infrastructure` directory and run:
+
 ```bash
-# Inside infrastructure folder
 make run
