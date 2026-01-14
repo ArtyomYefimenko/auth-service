@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     access_token_life_time: int = 15 * 60  # 15 minutes
     refresh_token_life_time: int = 60 * 60 * 24 * 30  # 30 days
 
+    postgres_host: str = 'auth-service-postgres'
     postgres_db: str = 'postgres'
     postgres_user: str = 'postgres'
     postgres_password: str = 'postgres'
@@ -33,7 +34,7 @@ class Settings(BaseSettings):
     def database_url(self) -> str:
         return (
             f'postgresql://{self.postgres_user}:{self.postgres_password}'
-            f'@auth-service-postgres:5432/{self.postgres_db}'
+            f'@{self.postgres_host}:5432/{self.postgres_db}'
         )
 
     @property

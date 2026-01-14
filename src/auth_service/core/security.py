@@ -37,7 +37,13 @@ def create_refresh_token() -> str:
 def decode_access_token(token: str) -> JwtSchema:
     try:
         payload = jwt.decode(
-            token, settings.jwt_secret, algorithms=['HS256'], options={'require': ['exp', 'iat', 'sub', 'jti', 'iss']}
+            token,
+            settings.jwt_secret,
+            algorithms=['HS256'],
+            options={
+                'require': ['exp', 'iat', 'sub', 'jti', 'iss'],
+                'verify_exp': True,
+            },
         )
     except jwt.PyJWTError:
         raise

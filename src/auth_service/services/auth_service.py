@@ -57,7 +57,11 @@ class AuthService:
             )
 
     async def get_user_by_id(self, user_id: uuid.UUID) -> User | None:
-        return await self.repo.get_user_by_id(user_id=user_id)
+        user = await self.repo.get_user_by_id(user_id=user_id)
+        if not user:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid credentials')
+
+        return user
 
     async def issue_token_pair(self, phone: str, password: str) -> TokenPairDTO:
         user = await self.repo.get_user_by_phone(phone)

@@ -16,11 +16,11 @@ Auth Service is a microservice responsible for user authentication and authoriza
 
 ## API Endpoints
 
-- `POST /api/v1/sign-up` – Register a new user.
-- `POST /api/v1/sign-in` – Login and get access + refresh tokens.
-- `POST /api/v1/refresh` – Exchange a refresh token for a new token pair.
-- `POST /api/v1/logout` – Revoke a refresh token (logout).
-- `GET /api/v1/me` – Get profile of the current authenticated user.
+- `POST /api/v1/sign-up` - Register a new user.
+- `POST /api/v1/sign-in` - Login and get access + refresh tokens.
+- `POST /api/v1/refresh` - Exchange a refresh token for a new token pair.
+- `POST /api/v1/logout` - Revoke a refresh token (logout).
+- `GET /api/v1/me` - Get profile of the current authenticated user.
 - Future endpoints for confirming phone number via OTP, updating user profile, changing and restoring password, etc.
 
 ## Tech Stack
